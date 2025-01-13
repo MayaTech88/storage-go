@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/supabase-community/storage-go"
+	"github.com/MayaTech88/storage-go"
 )
 
 func TestBucketListAll(t *testing.T) {

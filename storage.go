@@ -56,7 +56,7 @@ func (c *Client) UploadOrUpdateFile(
 
 	// set content-type back to default after request
 	c.clientTransport.header.Set("content-type", "application/json")
-	
+
 	if err != nil {
 		return FileUploadResponse{}, err
 	}
@@ -272,7 +272,7 @@ func (c *Client) ListFiles(bucketId string, queryPath string, options FileSearch
 // bucketId string The bucket id.
 // filePath string The file path, including the file name. Should be of the format `folder/subfolder/filename.png`
 // urlOptions UrlOptions The URL options
-func (c *Client) DownloadFile(bucketId string, filePath string, urlOptions ...UrlOptions) ([]byte, error) {
+func (c *Client) DownloadFile(bucketId string, filePath string, urlOptions ...UrlOptions) (io.ReadCloser, error) {
 	var options UrlOptions
 	renderPath := "object"
 	if len(urlOptions) > 0 {
@@ -291,10 +291,8 @@ func (c *Client) DownloadFile(bucketId string, filePath string, urlOptions ...Ur
 	if err != nil {
 		return nil, err
 	}
-	defer res.Body.Close()
 
-	body, err := io.ReadAll(res.Body)
-	return body, err
+	return res.Body, err
 }
 
 // buildUrlWithOption will base on current url and option to build a new url

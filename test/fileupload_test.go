@@ -2,10 +2,11 @@ package test
 
 import (
 	"fmt"
+	"io"
 	"os"
 	"testing"
 
-	storage_go "github.com/supabase-community/storage-go"
+	storage_go "github.com/MayaTech88/storage-go"
 )
 
 var (
@@ -104,7 +105,9 @@ func TestDownloadFile(t *testing.T) {
 		t.Fatalf("DownloadFile failed: %v", err)
 	}
 
-	err = os.WriteFile("book.pdf", resp, 0644)
+	body, err := io.ReadAll(resp)
+
+	err = os.WriteFile("book.pdf", body, 0644)
 	if err != nil {
 		t.Fatalf("WriteFile failed: %v", err)
 	}
