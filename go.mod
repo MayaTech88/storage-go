@@ -1,3 +1,3 @@
 module github.com/MayaTech88/storage-go
 
-go 1.17
+go 1.23
